@@ -23,7 +23,7 @@ def test_episotropic():
   assert np.isclose( known , found )
 
   E, H, Y0= 1000, 111, 10
-  ep_iso = ep.ElastoPlasticIsoHard( E, H, Yo)
+  ep_iso = ep.ElastoPlasticIsoHard( E, H, Y0)
   epsilon_arr = np.array( [0, 0.001, 0.1] )
   sigma_arr_found = ep_iso.cal_sigma_array( epsilon_arr, 0  )
   sigma_arr_known = np.array( [0, 1, 18.991899189918996] )
