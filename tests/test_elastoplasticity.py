@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import pytest
 from elastoplasticity import elasto_plasticity as ep
 
 def test_episotropic():
