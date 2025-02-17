@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 class ElastoPlasticIsoHard:
   def __init__(self, E, H, Y0):
