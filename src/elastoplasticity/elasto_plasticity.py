@@ -1,5 +1,5 @@
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 class ElastoPlasticIsoHard:
   def __init__(self, E, H, Y0):
@@ -81,6 +81,15 @@ class ElastoPlasticIsoHard:
       sigma_lst.append( self.sigma )
     return np.array( sigma_lst )
 
+  def plot_stress_strain_curve(self, epsilon_arr, sigma0):
+    sigma_arr = self.cal_sigma_array( epsilon_arr, sigma0 )
+    plt.figure()
+    plt.plot(epsilon_arr, sigma_arr, color='red')
+    plt.title( 'Stress-Strain Curve for a Material with Isotropic Hardening' )
+    plt.xlabel("Total Applied Strain")
+    plt.ylabel("Stress")
+    plt.grid()
+
 
 class ElastoPlasticKinematicHard:
   def __init__(self, E, H, Y):
@@ -157,3 +166,19 @@ class ElastoPlasticKinematicHard:
       sigma0 = self.sigma
       sigma_lst.append( self.sigma )
     return np.array( sigma_lst )
+
+  def plot_stress_strain_curve(self, epsilon_arr, sigma0):
+    sigma_arr = self.cal_sigma_array( epsilon_arr, sigma0 )
+    plt.figure()
+    plt.plot(epsilon_arr, sigma_arr, color='red')
+    plt.title( 'Stress-Strain Curve for a Material with Kinematic Hardening' )
+    plt.xlabel("Total Applied Strain")
+    plt.ylabel("Stress")
+    plt.grid()
+
+def plot_total_applied_strain( epsilon_arr ):
+  plt.figure()
+  plt.plot(list( range( 1, epsilon_arr.size + 1 ) ), epsilon_arr, color='red')
+  plt.xlabel("Load Step")
+  plt.ylabel("Total Applied Strain")
+  plt.grid()
