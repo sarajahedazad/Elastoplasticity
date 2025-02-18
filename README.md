@@ -10,56 +10,108 @@
 * [References](#references)
 
 ---
-# Elastoplasticty
+# **Elasto-Plasticity and Hardening Models**
 
-This repository provides an implementation of [Newton's method](https://en.wikipedia.org/wiki/Newton%27s_method) (also known as the Newton–Raphson method) for finding roots (zeros) of functions or systems of equations. Newton's method is an iterative algorithm commonly used in numerical analysis and scientific computing.
+## **Introduction**
+Elasto-plasticity describes the behavior of materials that undergo **both elastic and plastic deformation** when subjected to loading. 
 
-## What is Newton's Method? <a name="nm"></a>
+- **Elastic deformation**: The material returns to its original shape when the load is removed.
+- **Plastic deformation**: The material undergoes **permanent deformation** once the stress exceeds a certain limit, called the **yield stress**.
 
-Newton's method is designed to find solutions to the equation $F(x) = 0$. It uses the first-order Taylor expansion to generate iterative approximations of the root. For a single variable, each iteration is:
-
-
-$x_{k+1} = x_k - \frac{F(x_k)}{F'(x_k)}$
-
-
-For multiple variables, the concept extends using the Jacobian matrix $J(x)$:
-
-$x_{k+1} = x_k - J(x_k)^{-1} F(x_k)$
-
-By iterating this process, we often converge quickly (quadratically, near the root) to a solution, given a good initial guess and certain regularity conditions on $F$.
-
-Stopping criteria: Maximum number of iterations is reached, or the found solution is smaller than a predefined absolute tolerance, or the absolute differnece between $x_{k+1}$ and $x_{k}$ is smaller than a predefined relative tolerance.
-
----
-### Requirements
-
-`numpy library`  
-`sympy library`     
+To model plastic behavior, two common hardening rules are used: **Isotropic Hardening** and **Kinematic Hardening**.
 
 ---
 
-### Codes
-The file `newton_solver.py` (located in the `src/newtonsolver` folder) contains several functions that implement Newton's method. The primary function that users call to find the root of an expression is `solve`.
+## **Isotropic Hardening**
+### **Concept**
+In **isotropic hardening**, the yield surface **expands uniformly** in all directions as plastic deformation occurs. This means that after yielding, the material becomes stronger, and a higher stress is required to continue plastic flow.
 
-**Function `solve`**  
-*Inputs:*  
-**F**: expression of a function defined in sympy. Should be a `sympy.Matrix`.    
-example: `F = sympy.Matrix([ x[0]**3- 4 *x[0], x[0]**2- 1 ])`     
-**J**: Jacobian of F. Should be a `sympy.Matrix`.    
-example: `J = F.jacobian(x)`     
-**x**: A tuple containing symbols used to define the expression F in sympy. Should be as `tuple[sympy.Symbol, ...]`.     
-example: `x = sympy.symbols(f'x:{n}')` in which n is the number of variables (according to F, n is 2 here).     
-**x0**: a numpy arrasy as the initial guess for x.     
-example: `x = np.array([ 1.5, 2.2 ])`   
-**max_iter**: maximum number of iteration allowed to run the Newton's algorithm, default = 50  
-**abs_tol**: absolute tolerance, default = $10^{-9}$  
-**rel_tol**: relative tolerance, default = $10^{-9}$    
-**verbose**: whether to print out the debug information at each iteration or not, default = False
+### **Characteristics**
+- Yield surface grows **symmetrically**.
+- Hardening affects material strength **equally in all directions**.
+- Suitable for materials undergoing **monotonic loading** (continuous loading in one direction).
+- Does **not** capture the **Bauschinger effect** (which describes how materials soften when load direction is reversed).
 
-*Outputs:*  
-**root**: the solution for the expression F, based on the initial guess of x0.
+### **Mathematical Representation**
+If \( Y_0 \) is the initial yield stress and \( H \) is the hardening modulus, then the **new yield stress** \( Y \) after plastic strain \( \varepsilon_p \) follows:
 
-`Error`: if no root is found after maximum number of iterations, an error will be raised.
+\[
+Y = Y_0 + H \varepsilon_p
+\]
+
+Where:
+- \( Y_0 \) is the initial yield stress.
+- \( H \) is the hardening modulus (determines how much the yield surface expands).
+- \( \varepsilon_p \) is the accumulated plastic strain.
+
+---
+
+## **Kinematic Hardening**
+### **Concept**
+In **kinematic hardening**, the yield surface **translates (shifts) in stress space** without changing size. This allows the material to model cyclic loading and capture the **Bauschinger effect**.
+
+### **Characteristics**
+- Yield surface **moves** instead of expanding.
+- Captures **cyclic plasticity** and **ratcheting effects**.
+- Useful for **reversed and cyclic loading** (e.g., fatigue analysis).
+- More realistic for metals and alloys subjected to **alternating stress cycles**.
+
+### **Mathematical Representation**
+The evolution of the **back stress** \( X \), which defines the translation of the yield surface, is governed by:
+
+\[
+dX = C d\varepsilon_p
+\]
+
+Where:
+- \( X \) is the back stress (shifts the yield surface).
+- \( C \) is a kinematic hardening parameter.
+- \( d\varepsilon_p \) is the plastic strain increment.
+
+---
+
+## **Comparison: Isotropic vs. Kinematic Hardening**
+
+| Feature               | Isotropic Hardening | Kinematic Hardening |
+|-----------------------|--------------------|---------------------|
+| Yield Surface Change | Expands uniformly  | Translates (shifts) |
+| Captures Bauschinger Effect? | ❌ No | ✅ Yes |
+| Best for Monotonic Loading? | ✅ Yes | ❌ No |
+| Best for Cyclic Loading? | ❌ No | ✅ Yes |
+| Yield Stress Increase? | **Yes** (hardening in all directions) | **No** (only shifts) |
+
+---
+
+## **Applications**
+### **Isotropic Hardening**
+✅ Used for **monotonic loading** problems, such as:
+- Metal forming
+- Pressing and forging
+- Simple tensile/compression tests
+
+### **Kinematic Hardening**
+✅ Used for **cyclic loading** problems, such as:
+- Fatigue analysis
+- Springback in sheet metal forming
+- Structural analysis of materials under **alternating loads**
+
+---
+
+## **Example: Stress-Strain Response**
+Below is a comparison of how stress-strain behavior differs under **isotropic** and **kinematic hardening**.
+
+- **Isotropic Hardening** → The material hardens in all directions, requiring more stress for continued plastic flow.
+- **Kinematic Hardening** → The material softens when the load is reversed, modeling real cyclic behavior.
+
+📌 **Check out the implementation in this repository!** 🚀
+
+---
+
+## **References**
+- J. Lubliner, *Plasticity Theory*, 2006.
+- T. Belytschko, *Nonlinear Finite Elements for Continua and Structures*, 2014.
+- Simo & Hughes, *Computational Inelasticity*, 1998.
+
 
 ---
 
@@ -68,7 +120,7 @@ _This section is copied and pasted from [Lejeune's Lab Graduate Course Materials
 
 To install this package, please begin by setting up a conda environment (mamba also works):
 ```bash
-conda create --name newton-solver-env python=3.12
+conda create --name elastoplasticity-env python=3.12
 ```
 Once the environment has been created, activate it:
 
