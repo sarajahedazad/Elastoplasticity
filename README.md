@@ -134,7 +134,7 @@ cd tutorials/
 ```bash
 jupyter notebook tutorial_elastoplasticity.ipynb
 ```
-### An alternative way to test the implemented Newton's method without installing the package <a name="alter"></a>
+### An alternative way to test the implemented Elastoplasticity models without installing the package <a name="alter"></a>
 - Step 1: Download the `elasto_plasity.py` file from the folder `src/elastoplasticiy`([here](https://github.com/sarajahedazad/Elastoplasticity/tree/main/src/elastoplasticity)). Place it in the same folder as your working directory.
 - Step 2: Create a python file in that folder and write your example in that file. You can import the `elastoplasticity` with the following line:
 `import elasto_plasticity as ep`
