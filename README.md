@@ -10,6 +10,7 @@
 * [References](#references)
 
 ---
+*
 # **Elasto-Plasticity and Hardening Models**
 
 ## **Introduction**
@@ -104,7 +105,7 @@ Below is a comparison of how stress-strain behavior differs under **isotropic** 
 - **Kinematic Hardening** → The material softens when the load is reversed, modeling real cyclic behavior.
 
 📌 **Check out the implementation in this repository!** 🚀
-
+*
 ---
 
 ## **References**
