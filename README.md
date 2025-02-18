@@ -33,16 +33,16 @@ In **isotropic hardening**, the yield surface **expands uniformly** in all direc
 - Does **not** capture the **Bauschinger effect** (which describes how materials soften when load direction is reversed).
 
 ### **Mathematical Representation**
-If \( Y_0 \) is the initial yield stress and \( H \) is the hardening modulus, then the **new yield stress** \( Y \) after plastic strain \( \varepsilon_p \) follows:
+If $Y_0$ is the initial yield stress and $H$ is the hardening modulus, then the **new yield stress** $Y$ after plastic strain $\varepsilon_p$ follows:
 
-\[
+$$
 Y = Y_0 + H \varepsilon_p
-\]
+$$
 
 Where:
-- \( Y_0 \) is the initial yield stress.
-- \( H \) is the hardening modulus (determines how much the yield surface expands).
-- \( \varepsilon_p \) is the accumulated plastic strain.
+- $Y_0$ is the initial yield stress.
+- $H$ is the hardening modulus (determines how much the yield surface expands).
+- $\varepsilon_p$ is the accumulated plastic strain.
 
 ---
 
@@ -57,16 +57,16 @@ In **kinematic hardening**, the yield surface **translates (shifts) in stress sp
 - More realistic for metals and alloys subjected to **alternating stress cycles**.
 
 ### **Mathematical Representation**
-The evolution of the **back stress** \( X \), which defines the translation of the yield surface, is governed by:
+The evolution of the **back stress** $X$, which defines the translation of the yield surface, is governed by:
 
-\[
+$$
 dX = C d\varepsilon_p
-\]
+$$
 
 Where:
-- \( X \) is the back stress (shifts the yield surface).
-- \( C \) is a kinematic hardening parameter.
-- \( d\varepsilon_p \) is the plastic strain increment.
+- $X$ is the back stress (shifts the yield surface).
+- $C$ is a kinematic hardening parameter.
+- $d\varepsilon_p$ is the plastic strain increment.
 
 ---
 
@@ -111,7 +111,6 @@ Below is a comparison of how stress-strain behavior differs under **isotropic** 
 - J. Lubliner, *Plasticity Theory*, 2006.
 - T. Belytschko, *Nonlinear Finite Elements for Continua and Structures*, 2014.
 - Simo & Hughes, *Computational Inelasticity*, 1998.
-
 
 ---
 
