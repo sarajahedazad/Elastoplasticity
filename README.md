@@ -160,7 +160,9 @@ ep_k.plot_stress_strain_curve(epsilon_arr, sigma0)
 ---
 ### References
 * [Lejeune Lab Graduate Course Materials: Bisection-Method](https://github.com/Lejeune-Lab-Graduate-Course-Materials/bisection-method/tree/main) 
-* ChatGPT: was used for completing the documentation. All sections before [Requirements](#requirements) are written by the GenAI. Also, was used to generate epsilon arrays in the tutorials.    
+* ChatGPT: was used for completing the documentation. All sections before [Requirements](#requirements) are written by the GenAI. Also, was used to generate epsilon arrays in the tutorials.
+
+   
 References used by ChatGPT:
 - J. Lubliner, *Plasticity Theory*, 2006.
 - T. Belytschko, *Nonlinear Finite Elements for Continua and Structures*, 2014.
