@@ -81,7 +81,7 @@ class ElastoPlasticIsoHard:
       sigma_lst.append( self.sigma )
     return np.array( sigma_lst )
 
-  def plot_stress_strain_curve(self, epsilon_arr, sigma0):
+  def plot_stress_strain_curve(self, epsilon_arr, sigma0, fig_name_with_path):
     sigma_arr = self.cal_sigma_array( epsilon_arr, sigma0 )
     plt.figure()
     plt.plot(epsilon_arr, sigma_arr, color='red')
@@ -89,6 +89,8 @@ class ElastoPlasticIsoHard:
     plt.xlabel("Total Applied Strain")
     plt.ylabel("Stress")
     plt.grid()
+    plt.savefig(fig_name_with_path)
+    return
 
 
 class ElastoPlasticKinematicHard:
@@ -167,7 +169,7 @@ class ElastoPlasticKinematicHard:
       sigma_lst.append( self.sigma )
     return np.array( sigma_lst )
 
-  def plot_stress_strain_curve(self, epsilon_arr, sigma0):
+  def plot_stress_strain_curve(self, epsilon_arr, sigma0, fig_name_with_path):
     sigma_arr = self.cal_sigma_array( epsilon_arr, sigma0 )
     plt.figure()
     plt.plot(epsilon_arr, sigma_arr, color='red')
@@ -175,10 +177,14 @@ class ElastoPlasticKinematicHard:
     plt.xlabel("Total Applied Strain")
     plt.ylabel("Stress")
     plt.grid()
+    plt.savefig(fig_name_with_path)
+    return
 
-def plot_total_applied_strain( epsilon_arr ):
+def plot_total_applied_strain( epsilon_arr, fig_name_with_path ):
   plt.figure()
   plt.plot(list( range( 1, epsilon_arr.size + 1 ) ), epsilon_arr, color='red')
   plt.xlabel("Load Step")
   plt.ylabel("Total Applied Strain")
   plt.grid()
+  plt.savefig(fig_name_with_path)
+  return
