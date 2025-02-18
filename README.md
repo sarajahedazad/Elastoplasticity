@@ -2,18 +2,19 @@
 
 ---
 ### Table of contents
-* [What is Newton's Method?](#nm)
+* [Introduction](#introduction)
+* [Isotropic Hardening](#iso)
+* [Kinematic Hardening](#kin)
+* [Comparison: Isotropic vs. Kinematic Hardening](#vs)
 * [Requirements](#requirements)
-* [Codes](#codes)
 * [Conda environment, install, and testing](#install)
 * [An alternative way to test the implemented Newton's method without installing the package ](#alter)
 * [References](#references)
 
 ---
-*
-# **Elasto-Plasticity and Hardening Models**
+# **Elasto-Plasticity and Hardening Models** 
 
-## **Introduction**
+## **Introduction** 
 Elasto-plasticity describes the behavior of materials that undergo **both elastic and plastic deformation** when subjected to loading. 
 
 - **Elastic deformation**: The material returns to its original shape when the load is removed.
@@ -23,7 +24,7 @@ To model plastic behavior, two common hardening rules are used: **Isotropic Hard
 
 ---
 
-## **Isotropic Hardening**
+## **Isotropic Hardening** <a name="iso"></a>
 ### **Concept**
 In **isotropic hardening**, the yield surface **expands uniformly** in all directions as plastic deformation occurs. This means that after yielding, the material becomes stronger, and a higher stress is required to continue plastic flow.
 
@@ -47,7 +48,7 @@ Where:
 
 ---
 
-## **Kinematic Hardening**
+## **Kinematic Hardening** <a name="kin"></a>
 ### **Concept**
 In **kinematic hardening**, the yield surface **translates (shifts) in stress space** without changing size. This allows the material to model cyclic loading and capture the **Bauschinger effect**.
 
@@ -71,7 +72,7 @@ Where:
 
 ---
 
-## **Comparison: Isotropic vs. Kinematic Hardening**
+## **Comparison: Isotropic vs. Kinematic Hardening** <a name="vs"></a>
 
 | Feature               | Isotropic Hardening | Kinematic Hardening |
 |-----------------------|--------------------|---------------------|
@@ -82,36 +83,11 @@ Where:
 | Yield Stress Increase? | **Yes** (hardening in all directions) | **No** (only shifts) |
 
 ---
+### Requirements
 
-## **Applications**
-### **Isotropic Hardening**
-✅ Used for **monotonic loading** problems, such as:
-- Metal forming
-- Pressing and forging
-- Simple tensile/compression tests
-
-### **Kinematic Hardening**
-✅ Used for **cyclic loading** problems, such as:
-- Fatigue analysis
-- Springback in sheet metal forming
-- Structural analysis of materials under **alternating loads**
-
----
-
-## **Example: Stress-Strain Response**
-Below is a comparison of how stress-strain behavior differs under **isotropic** and **kinematic hardening**.
-
-- **Isotropic Hardening** → The material hardens in all directions, requiring more stress for continued plastic flow.
-- **Kinematic Hardening** → The material softens when the load is reversed, modeling real cyclic behavior.
-
-📌 **Check out the implementation in this repository!** 🚀
-*
----
-
-## **References**
-- J. Lubliner, *Plasticity Theory*, 2006.
-- T. Belytschko, *Nonlinear Finite Elements for Continua and Structures*, 2014.
-- Simo & Hughes, *Computational Inelasticity*, 1998.
+`numpy library`    
+`matplotlib library`     
+`pytest library`
 
 ---
 
@@ -184,4 +160,8 @@ ep_k.plot_stress_strain_curve(epsilon_arr, sigma0)
 ---
 ### References
 * [Lejeune Lab Graduate Course Materials: Bisection-Method](https://github.com/Lejeune-Lab-Graduate-Course-Materials/bisection-method/tree/main) 
-* chatGPT: was used for completing the documentation. The introduction and [What is Newton's Method?](#nm) sections are written by the GenAI. Also, was used to generate epsilon arrays.
+* ChatGPT: was used for completing the documentation. All sections before [Requirements](#requirements) are written by the GenAI. Also, was used to generate epsilon arrays in the tutorials.    
+References used by ChatGPT:
+- J. Lubliner, *Plasticity Theory*, 2006.
+- T. Belytschko, *Nonlinear Finite Elements for Continua and Structures*, 2014.
+- Simo & Hughes, *Computational Inelasticity*, 1998.
