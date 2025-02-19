@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 import pytest
 from elastoplasticity import elasto_plasticity as ep
 
@@ -28,6 +29,17 @@ def test_episotropic():
   sigma_arr_found = ep_iso.cal_sigma_array( epsilon_arr, 0  )
   sigma_arr_known = np.array( [0, 1, 18.991899189918996] )
   assert np.all( np.isclose( sigma_arr_found , sigma_arr_known ) )
+
+  E, H, Y0= 1000, 111, 10 
+  ep_iso = ep.ElastoPlasticIsoHard( E, H, Y0)
+  epsilon_arr = np.concatenate( (np.linspace(0, 0.02, 100), np.linspace(0.02, 0, 100), np.linspace(0, -0.02, 100), np.linspace(-0.02, 0, 100), np.linspace(0, 0.04, 200), np.linspace(0.04, 0, 200)))
+  sigma0 = 0
+  self_path_file = Path(__file__)
+  self_path = self_path_file.resolve().parent
+  data_path = self_path.joinpath("files").resolve()
+  fig_name_with_path = data_path.joinpath("test_plot_funciton_episotropic.png").resolve()
+  ep_iso.plot_stress_strain_curve(epsilon_arr, sigma0, fig_name_with_path)
+  assert fig_name_with_path.is_file()
 
 
 def test_kinematic():
